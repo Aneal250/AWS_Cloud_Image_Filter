@@ -1,7 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
 import { filterImageFromURL, deleteLocalFiles } from "./util/util";
-import { Router, Request, Response } from "express";
+import {  Request, Response } from "express";
 
 (async () => {
 	// Init the Express application
@@ -28,11 +28,11 @@ import { Router, Request, Response } from "express";
 	//   the filtered image file [!!TIP res.sendFile(filteredpath); might be useful]
 
 	/**************************************************************************** */
-	app.get("/filteredimage", async (req, res) => {
-		const image_url = req.query.image_url.toString();
+	app.get("/filteredimage", async (req: Request, res: Response) => {
+		const image_url: string = req.query.image_url.toString();
 		console.log(image_url);
 		if (!image_url) {
-			res.status(404).send("Image Url not specified!");
+			res.status(400).send("Image Url not specified!");
 		}
 
 		const filtered_image = await filterImageFromURL(image_url);
@@ -46,7 +46,7 @@ import { Router, Request, Response } from "express";
 
 	// Root Endpoint
 	// Displays a simple message to the user
-	app.get("/", async (req, res) => {
+	app.get("/", async (req: Request, res: Response) => {
 		res.send("try GET /filteredimage?image_url={{}}");
 	});
 
